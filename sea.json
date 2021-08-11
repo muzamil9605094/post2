@@ -1,0 +1,25 @@
+{
+	"info": {
+		"_postman_id": "76742165-9d75-4332-9810-9d666b02d043",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "pf.com.pk",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "pf.com.pk",
+					"host": [
+						"pf",
+						"com",
+						"pk"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
