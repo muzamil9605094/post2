@@ -1,94 +1,54 @@
-{
-	"info": {
-		"name": "Github Api",
-		"_postman_id": "761f07cf-a72d-6fcf-2b54-7c8d6aa45552",
-		"description": "This is a collection for the Github API",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-	},
-	"item": [
-		{
-			"name": "Github Root APi",
-			"description": "This folder contains github Api's",
-			"item": [
-				{
-					"name": "Github Root APi Request",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									"const jsonData = JSON.parse(responseBody);",
-									"const usersURL = \"https://api.github.com/user\"",
-									"const emailsURL = \"https://api.github.com/user/emails\"",
-									"const followersURL = \"https://api.github.com/user/followers\"",
-									"const followingURL = \"https://api.github.com/user/following{/target}\"",
-									"",
-									"let {current_user_url, emails_url, followers_url, following_url} = jsonData",
-									"",
-									"// Tests go here",
-									"tests[\"Gets the correct users url\"] = current_user_url === usersURL;",
-									"tests[\"Gets the correct emails url\"] = emails_url === emailsURL;",
-									"tests[\"Gets the correct followers url\"] = followers_url === followersURL;",
-									"tests[\"Gets the correct following url\"] = following_url === followingURL;"
-								]
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {},
-						"url": {
-							"raw": "{{base_url}}",
-							"host": [
-								"{{base_url}}"
-							]
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Github User API Request",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									"const jsonData = JSON.parse(responseBody);",
-									"",
-									"const { login } = jsonData;",
-									"",
-									"tests[\"Gets the correct username\"] = login === \"scotch-io\";",
-									"",
-									"tests[\"Status code is 200\"] = responseCode.code === 200;",
-									"",
-									"tests[\"Content-Type is present\"] = postman.getResponseHeader(\"Content-Type\");"
-								]
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {},
-						"url": {
-							"raw": "{{base_url}}/users/{{user_name}}",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"users",
-								"{{user_name}}"
-							]
-						},
-						"description": ""
-					},
-					"response": []
-				}
-			]
-		}
-	]
-}
+pm.test("Status code: Status code is 200", function (){
+  pm.response.to.have.status(200);
+});
+
+pm.test("Response Body: Body matches string", function(){
+    pm.expect(pm.response.text()).to.include("rest_id");
+    pm.expect(pm.response.text()).to.include("rest_name");
+    pm.expect(pm.response.text()).to.include("allergen_safety");
+    pm.expect(pm.response.text()).to.include("rest_branch");
+    pm.expect(pm.response.text()).to.include("sys_creation_dat");
+    pm.expect(pm.response.text()).to.include("sys_update_date");
+    pm.expect(pm.response.text()).to.include("user_id");
+    pm.expect(pm.response.text()).to.include("application_id");
+    pm.expect(pm.response.text()).to.include("version_code");
+});
+
+pm.test("Response Body:rest_name should be Nandos for first record", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData[0].rest_name).to.eql("Nandos");
+});
+
+pm.test("Performance Testing : Response time is less than 200ms", function () {
+    pm.expect(pm.response.responseTime).to.be.below(200);
+});
+
+pm.test("Successful POST request", function () {
+    pm.expect(pm.response.code).to.be.oneOf([200, 201]);
+});
+pm.test("Status code name has string", function () {
+    pm.response.to.have.status("OK");
+});
+@yogitakumar
+Owner Author
+yogitakumar commented on May 1
+
+We can write these test cases for API in Postman under Tests tab and we can get result under Test Results tab
+@muzamil9605094
+Attach files by dragging & dropping, selecting or pasting them.
+
+    © 2021 GitHub, Inc.
+    Terms
+    Privacy
+    Security
+    Status
+    Docs
+
+    Contact GitHub
+    Pricing
+    API
+    Training
+    Blog
+    About
+
+Loading complete
